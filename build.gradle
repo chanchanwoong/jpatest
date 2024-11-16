@@ -26,6 +26,9 @@ dependencies {
 
 	// lombok
 	implementation 'org.projectlombok:lombok'
+
+	// postgreSQL
+	runtimeOnly 'org.postgresql:postgresql'
 }
 
 tasks.named('test') {
