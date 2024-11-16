@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 //@Setter
 @NoArgsConstructor
-@Document(collation = "round_info")
+@Document(collection = "round_info")
 public class RoundDataDocument {
 
     @Id

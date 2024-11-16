@@ -59,24 +59,32 @@ public class WritePerformanceTest {
     }
 
     @Test
-    @Transactional
-    public void testInsertData() {
+//    @Transactional
+    public void MongoDbInsertTest() {
         // 테스트 삽입 횟수 지정
-//        int[] dataSizes = {1000, 10000, 100000};
-        int[] dataSizes = {100000};
+        int dataSizes = 100000;
+        long mongoStartTime = System.currentTimeMillis();
 
-        for (int dataSize : dataSizes) {
-            // MongoDB 테스트
-            long mongoStartTime = System.currentTimeMillis();
-            IntStream.range(0, dataSize).forEach(i -> mongoDbRepository.save(createMongoData()));
-            long mongoEndTime = System.currentTimeMillis();
-            System.out.println("MongoDB - " + dataSize + " records inserted in: " + (mongoEndTime - mongoStartTime) + "ms");
-
-            // PostgreSQL 테스트
-            long postgresStartTime = System.currentTimeMillis();
-            IntStream.range(0, dataSize).forEach(i -> postgreSqlRepository.save(createPostgreSQLData()));
-            long postgresEndTime = System.currentTimeMillis();
-            System.out.println("PostgreSQL - " + dataSize + " records inserted in: " + (postgresEndTime - postgresStartTime) + "ms");
+        for (int i = 0; i < dataSizes; i++) {
+            RoundDataDocument data = createMongoData();
+            mongoDbRepository.save(data);
         }
+        long mongoEndTime = System.currentTimeMillis();
+        System.out.println("MongoDB - " + dataSizes + " records inserted in: " + (mongoEndTime - mongoStartTime) + "ms");
+    }
+
+    @Test
+//    @Transactional
+    public void postgreSqlInsertTest() {
+        // 테스트 삽입 횟수 지정
+        int dataSizes = 100000;
+        long postgresStartTime = System.currentTimeMillis();
+
+        for (int i = 0; i < dataSizes; i++) {
+            RoundDataEntity data = createPostgreSQLData();
+            postgreSqlRepository.save(data);
+        }
+        long postgresEndTime = System.currentTimeMillis();
+        System.out.println("PostgreSQL - " + dataSizes + " records inserted in: " + (postgresEndTime - postgresStartTime) + "ms");
     }
 }
