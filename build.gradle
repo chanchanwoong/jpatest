@@ -30,6 +30,9 @@ dependencies {
 
 	// postgreSQL
 	runtimeOnly 'org.postgresql:postgresql'
+
+	// jackson
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
 }
 
 tasks.named('test') {
